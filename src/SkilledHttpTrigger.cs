@@ -65,7 +65,6 @@ namespace AlexaFunctionDemo
             else if (requestType == typeof(SessionEndedRequest))
             {
                 skillResponse = BuildGoodbyeResponse();
-                skillResponse.Response.ShouldEndSession = true;
             }
 
             return new OkObjectResult(skillResponse);
@@ -89,37 +88,38 @@ namespace AlexaFunctionDemo
 
             var rnd = new Random();
             var slang = slangs.ElementAt(rnd.Next(slangs.Count));
-
-            var responseBuilder = ResponseBuilder.Tell(slang);
-            responseBuilder.Response.ShouldEndSession = false;
-            return responseBuilder;
+            return BuildTellResponse(slang, false);
         }
 
         private static SkillResponse BuildRentcarsResponse()
         {
             var text = "Ok, mas para alugar um carro você precisa dizer primeiro datas de inicio e fim!";
-            var responseBuilder = ResponseBuilder.Tell(text);
-            responseBuilder.Response.ShouldEndSession = false;
-            return responseBuilder;
+            return BuildTellResponse(text, false);
         }
 
-        private static SkillResponse BuildGoodbyeResponse() =>
-            ResponseBuilder.Tell("Até mais mano, da um salve para os trutas=! É NÓIS!!!");
+        private static SkillResponse BuildGoodbyeResponse() 
+        {
+            var text = "Até mais mano, da um salve para os trutas=! É NÓIS!!!";
+            return BuildTellResponse(text, true);
+        }
         
         private static SkillResponse BuildHelpResponse()
         {
-            var help = "Na Moral! Diz para nóis o que você, para a gente te dar uma força!";
-            var responseBuilder = ResponseBuilder.Tell(help);
-            responseBuilder.Response.ShouldEndSession = false;
-            return responseBuilder;
+            var help = "Na Moral! Diz para nóis o que você quer, para a gente te dar uma força!";
+            return BuildTellResponse(help, false);
         }
 
+        private static SkillResponse BuildTellResponse(string message, bool shouldEndSession)
+        {
+            var responseBuilder = ResponseBuilder.Tell(message);
+            responseBuilder.Response.ShouldEndSession = shouldEndSession;
+            return responseBuilder;
+        }
         private static async Task<SkillRequest> ParseSkillRequestFromJson(HttpRequest req) 
         {
             string json = await req.ReadAsStringAsync();
             var skillRequest = JsonConvert.DeserializeObject<SkillRequest>(json);
             return skillRequest;
         }
-        
     }
 }
