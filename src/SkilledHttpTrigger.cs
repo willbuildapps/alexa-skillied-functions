@@ -75,9 +75,16 @@ namespace AlexaFunctionDemo
         {
             var slangs = new List<string>
             {
-                "E aee rapá: um jeito bem paulistano de dizer ”oi, tudo bem?”",
-                "Abraça: em Sampa significa desistir de algo. Algo na linha do “já era”, não tem mais jeito.",
-                "Ô, véi: muito usado para chamar a atenção de outra pessoa. O mesmo que cara, mano, irmão…"
+                "E aee rapá: um de dizer ”oi, tudo bem?”",
+                "Abraça: significa desistir de algo. Algo na linha do “já era”, não tem mais jeito.",
+                "Ô, véi: muito usado para chamar a atenção de outra pessoa. O mesmo que cara, mano, irmão…",
+                "BÉRA: Uma das palavras mais importantes do universo: significa cerveja!",
+                "LARGAR OS BETS: O termo é utilizado quando alguém desiste de alguma coisa.",
+                "FRIACA: Quando está muito frio se diz friaca.",
+                "JAPONA: Japona é um casaco grande usado no frio. Uma jaqueta grande com zíper na frente com, ou sem capuz",
+                "BERMA: O mesmo que Bermuda.",
+                "Mó comédia: a pessoa que está sem credibilidade.",
+                "Cacete armado: lugar ruim demais"
             };
 
             var rnd = new Random();
@@ -90,18 +97,18 @@ namespace AlexaFunctionDemo
 
         private static SkillResponse BuildRentcarsResponse()
         {
-            var text = "Para alugar um carro você precisa dizer a data de inicio e fim!";
+            var text = "Ok, mas para alugar um carro você precisa dizer primeiro datas de inicio e fim!";
             var responseBuilder = ResponseBuilder.Tell(text);
             responseBuilder.Response.ShouldEndSession = false;
             return responseBuilder;
         }
 
         private static SkillResponse BuildGoodbyeResponse() =>
-            ResponseBuilder.Tell("Até mais mano, da um salve para os trutas, é nóis!");
+            ResponseBuilder.Tell("Até mais mano, da um salve para os trutas=! É NÓIS!!!");
         
         private static SkillResponse BuildHelpResponse()
         {
-            var help = "Presta atenção! Você precisa dizer o que quer, para que eu te ajude!";
+            var help = "Na Moral! Diz para nóis o que você, para a gente te dar uma força!";
             var responseBuilder = ResponseBuilder.Tell(help);
             responseBuilder.Response.ShouldEndSession = false;
             return responseBuilder;
